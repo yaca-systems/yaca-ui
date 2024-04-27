@@ -1,0 +1,22 @@
+body,
+.v-application {
+    background-color: transparent !important;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+html {
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: 'DSEG7 Modern';
+    src: url('../assets/fonts/DSEG7Modern-Regular.ttf') format('woff2'),
+        url('../assets/fonts/DSEG7Modern-Regular.woff') format('woff'),
+        url('../assets/fonts/DSEG7Modern-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

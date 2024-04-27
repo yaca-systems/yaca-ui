@@ -1,0 +1,26 @@
+{
+    "name": "ui_builds",
+    "private": true,
+    "version": "0.0.2",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "buildWithCheck": "vue-tsc && vite build",
+        "build": "vite build",
+        "build-altv": "vite build && copyfiles --flat templates/altV/* dist",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "copyfiles": "^2.4.1",
+        "vue": "^3.4.25",
+        "vue-router": "^4.3.2",
+        "vuetify": "^3.5.17"
+    },
+    "devDependencies": {
+        "@altv/types-webview": "^16.2.1",
+        "@types/node": "^20.12.7",
+        "@vitejs/plugin-vue": "^5.0.4",
+        "typescript": "^5.4.5",
+        "vite": "^5.2.10"
+    }
+}

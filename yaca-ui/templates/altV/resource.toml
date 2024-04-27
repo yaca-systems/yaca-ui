@@ -1,0 +1,3 @@
+type = "asset-pack"
+
+client-files = [ "assets/*"]
