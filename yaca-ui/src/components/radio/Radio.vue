@@ -118,6 +118,11 @@ onMounted(() => {
         values.frequency = channelData.frequency;
     });
 
+    GameService.on("webview:yaca:setRadioActive", (state: boolean) => {
+        values.isRadioActive = state;
+        values.antiSpam = +new Date();
+    });
+
     document.addEventListener('keydown', function(event) {
         if (values.isRadioActive && event.which == 17) {
             values.strgKeyDown = true;
