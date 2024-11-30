@@ -8,7 +8,7 @@ export default defineConfig({
     plugins: [vue()],
     base: './',
     build: {
-        outDir: './dist/assets',
+        outDir: './dist',
         emptyOutDir: true
     },
     resolve: {
