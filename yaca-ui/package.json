@@ -13,6 +13,7 @@
     "dependencies": {
         "copyfiles": "^2.4.1",
         "vue": "^3.4.25",
+        "vue-i18n": "^9.14.2",
         "vue-router": "^4.3.2",
         "vuetify": "^3.5.17"
     },
