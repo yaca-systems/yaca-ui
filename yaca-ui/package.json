@@ -7,7 +7,7 @@
         "dev": "vite",
         "buildWithCheck": "vue-tsc && vite build",
         "build": "vite build",
-        "build-altv": "vite build && copyfiles --flat templates/altV/* dist",
+        "build-altv": "vite build && copyfiles -u 2 templates/altV/**/* dist",
         "preview": "vite preview"
     },
     "dependencies": {
