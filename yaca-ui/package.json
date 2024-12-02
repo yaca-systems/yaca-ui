@@ -1,14 +1,14 @@
 {
     "name": "ui_builds",
     "private": true,
-    "version": "1.1.0",
+    "version": "1.2.1",
     "type": "module",
     "scripts": {
         "dev": "vite",
         "buildWithCheck": "vue-tsc && vite build",
         "build": "vite build",
         "build-altv": "vite build && copyfiles -u 2 templates/altV/**/* dist",
-        "build-fivem": "vite build && copyfiles --flat templates/fivem/* dist",
+        "build-fivem": "vite build && copyfiles -u 2 templates/fivem/**/* dist",
         "preview": "vite preview"
     },
     "dependencies": {

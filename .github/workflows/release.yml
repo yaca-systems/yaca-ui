@@ -49,28 +49,24 @@ jobs:
           npm version ${{ inputs.version }} --git-tag-version false
         working-directory: yaca-ui
 
-      - name: Run alt:V build
-        run: npm run build-altv
+      - name: Run build
+        run: npm run build 
         env:
           CI: false
-        working-directory: yaca-ui-altv
+        working-directory: yaca-ui
 
-      - name: Run FiveM build
-        run: npm run build-fivem
-        env:
-          CI: false
-        working-directory: yaca-ui-fivem
-
-      - name: Bundle files for alt:V
+      - name: Bundle files alt:V
         run: |
-          mkdir -p ./temp/yaca-ui-altv
-          cp -r ./yaca-ui-altv/dist/* ./temp/yaca-ui-altv/
-          cd ./temp && zip -r ../yaca-ui-altv.zip ./yaca-ui-altv
+          mkdir -p ./temp/yaca-ui
+          cp -r ./yaca-ui/dist/* ./temp/yaca-ui/
+          cp -r ./yaca-ui/templates/altV/* ./temp/yaca-ui/
+          cd ./temp && zip -r ../yaca-ui-altv.zip ./yaca-ui
 
       - name: Bundle files for FiveM
         run: |
           mkdir -p ./temp/yaca-ui-fivem
           cp -r ./yaca-ui-fivem/dist/* ./temp/yaca-ui-fivem/
+          cp -r ./yaca-ui/templates/fivem/* ./temp/yaca-ui/
           cd ./temp && zip -r ../yaca-ui-fivem.zip ./yaca-ui-fivem
 
       - name: Update repository

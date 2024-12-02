@@ -1,10 +1,9 @@
 games { 'gta5', 'rdr3' }
 fx_version 'cerulean'
 
-ui_page 'index.html'
+ui_page 'assets/index.html'
 
 files {
-    'index.html',
     'config.json',
     'assets/*'
 }
