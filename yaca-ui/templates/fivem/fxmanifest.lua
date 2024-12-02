@@ -5,7 +5,7 @@ ui_page 'assets/index.html'
 
 files {
     'config.json',
-    'assets/*'
+    'assets/**/*'
 }
 
 client_script 'client.js'
