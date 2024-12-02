@@ -49,16 +49,17 @@ jobs:
           npm version ${{ inputs.version }} --git-tag-version false
         working-directory: yaca-ui
 
-      - name: Run build alt:V
-        run: npm run build-altv 
+      - name: Run build
+        run: npm run build 
         env:
           CI: false
         working-directory: yaca-ui
 
-      - name: Bundle files
+      - name: Bundle files alt:V
         run: |
           mkdir -p ./temp/yaca-ui
           cp -r ./yaca-ui/dist/* ./temp/yaca-ui/
+          cp -r ./yaca-ui/templates/altV/* ./temp/yaca-ui/
           cd ./temp && zip -r ../yaca-ui-altv.zip ./yaca-ui
 
       - name: Update repository
