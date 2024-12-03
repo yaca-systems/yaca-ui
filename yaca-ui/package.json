@@ -1,26 +1,27 @@
 {
     "name": "ui_builds",
     "private": true,
-    "version": "1.1.0",
+    "version": "1.2.1",
     "type": "module",
     "scripts": {
         "dev": "vite",
         "buildWithCheck": "vue-tsc && vite build",
         "build": "vite build",
-        "build-altv": "vite build && copyfiles --flat templates/altV/* dist",
+        "build-altv": "vite build && copyfiles -u 2 templates/altV/**/* dist",
+        "build-fivem": "vite build && copyfiles -u 2 templates/fivem/**/* dist",
         "preview": "vite preview"
     },
     "dependencies": {
         "copyfiles": "^2.4.1",
-        "vue": "^3.4.25",
-        "vue-router": "^4.3.2",
-        "vuetify": "^3.5.17"
+        "vue": "^3.5.13",
+        "vue-router": "^4.5.0",
+        "vuetify": "^3.7.4"
     },
     "devDependencies": {
         "@altv/types-webview": "^16.2.1",
-        "@types/node": "^20.12.7",
-        "@vitejs/plugin-vue": "^5.0.4",
-        "typescript": "^5.4.5",
-        "vite": "^5.2.10"
+        "@types/node": "^22.10.1",
+        "@vitejs/plugin-vue": "^5.2.1",
+        "typescript": "^5.7.2",
+        "vite": "^6.0.1"
     }
 }

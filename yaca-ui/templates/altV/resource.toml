@@ -1,3 +1,5 @@
-type = "asset-pack"
-
-client-files = [ "assets/*"]
+client-main = 'client/main.js'
+client-type = 'js'
+client-files = [
+    '*'
+]
