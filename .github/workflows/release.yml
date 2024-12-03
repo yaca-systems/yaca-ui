@@ -62,6 +62,13 @@ jobs:
           cp -r ./yaca-ui/templates/altV/* ./temp/yaca-ui/
           cd ./temp && zip -r ../yaca-ui-altv.zip ./yaca-ui
 
+      - name: Bundle files for FiveM
+        run: |
+          mkdir -p ./temp/yaca-ui-fivem
+          cp -r ./yaca-ui-fivem/dist/* ./temp/yaca-ui-fivem/
+          cp -r ./yaca-ui/templates/fivem/* ./temp/yaca-ui/
+          cd ./temp && zip -r ../yaca-ui-fivem.zip ./yaca-ui-fivem
+
       - name: Update repository
         run: |
           git add .
@@ -77,7 +84,9 @@ jobs:
           automatic_release_tag: true
           title: 'v${{ inputs.version }}'
           prerelease: false
-          files: yaca-ui-altv.zip
+          files: |
+            yaca-ui-altv.zip
+            yaca-ui-fivem.zip
           ignore_authors: |
             github-actions[bot]
 
