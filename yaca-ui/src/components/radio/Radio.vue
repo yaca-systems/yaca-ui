@@ -38,8 +38,6 @@
                         <div class="frequenzContent">
                             <input v-model="values.frequency" class="inputFrequenz" type="text"
                                 @input="event => frequenzRule(event.target.value)"
-                                @focusin="handleInputFocus(true)"
-                                @focusout="handleInputFocus(false)"
                             />
                         </div>
                     </v-col>
@@ -84,13 +82,13 @@ let values = reactive({
         ],
         [
             {
-                key: '' //TODO: speaker_setting
+                key: ''
             },
             {
                 key: 'channel_down'
             },
             {
-                key: ''
+                key: 'close_radio'
             },
         ]
     ]
@@ -177,7 +175,7 @@ onMounted(() => {
 });
 
 let btnExecute = (mode: string) => {
-    if (!values.isRadioActive && mode != "onOff") return;
+    if (!values.isRadioActive && !["close_radio", "onOff"].includes(mode)) return;
 
     switch (mode) {
         case "onOff":
@@ -206,8 +204,8 @@ let btnExecute = (mode: string) => {
         case "volumeUp":
             volumeChange(mode);
             break;
-        case "speaker_setting":
-            GameService.emit("client:yaca:changeRadioSpeaker");
+        case "close_radio":
+            GameService.emit("client:yaca:closeRadio");
             break;
     }
 }
@@ -230,10 +228,6 @@ let channelSwitch = (up = true) => {
 
 let volumeChange = (mode: string) => {
     GameService.emit('client:yaca:changeRadioChannelVolume', mode == "volumeUp");
-}
-
-let handleInputFocus = (state: boolean) => {
-    GameService.emit("client:keyhandler:hardBlockAllKeys", "ui:radio", state);
 }
 </script>
 
