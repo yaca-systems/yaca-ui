@@ -27,17 +27,6 @@ const router = createRouter({
 
 
 const vuetify = createVuetify({
-    theme: {
-        defaultTheme: 'dark',
-        themes: {
-            dark: {
-                colors: {
-                    primary: '#21af2f',
-                    input: '#0b0b0bcc',
-                }
-            },
-        },
-    },
     directives,
     components: {
         ...components
