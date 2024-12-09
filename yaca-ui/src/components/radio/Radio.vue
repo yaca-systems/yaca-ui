@@ -82,7 +82,7 @@ let values = reactive({
         ],
         [
             {
-                key: ''
+                key: 'setSecondaryChannel'
             },
             {
                 key: 'channel_down'
@@ -206,6 +206,9 @@ let btnExecute = (mode: string) => {
             break;
         case "close_radio":
             GameService.emit("client:yaca:closeRadio");
+            break;
+        case "setSecondaryChannel":
+            GameService.emit("client:yaca:setSecondaryChannel", values.channel);
             break;
     }
 }
