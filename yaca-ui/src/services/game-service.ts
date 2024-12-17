@@ -1,13 +1,31 @@
 export class GameService {
-    /**
-     * Check if window has property alt
-     *
-     * @type {boolean}
-     * @private
-     */
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-    private static valid: boolean = window['alt'] !== undefined;
+    private static targetFramework: string = '';
+    private static events: Map<string, any> = new Map();
+    private static instance: GameService;
+
+    constructor() {
+        if (typeof (window as any)['alt'] !== "undefined") {
+            GameService.targetFramework = 'altv';
+        } else if (typeof (window as any)['nuiTargetGame'] !== "undefined") {
+            GameService.targetFramework = 'fivem';
+
+            window.addEventListener("message", function (event) {
+                const { eventName, ...params } = event.data;
+
+                const eventData = GameService.events.get(eventName);
+                if (!eventData) return;
+
+                eventData(...Object.values(params));
+            })
+        }
+    }
+
+    public static getInstance() {
+        if (!this.instance) {
+            this.instance = new GameService();
+        }
+        return this.instance;
+    }
 
     /**
      * Listen to event
@@ -19,30 +37,12 @@ export class GameService {
         eventName: string,
         listener: (...args: any[]) => void
     ): void {
-        if (this.valid && 'alt' in window) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+        if (GameService.targetFramework === 'altv') {
             alt.on(eventName, listener);
+        } else if (GameService.targetFramework === 'fivem') {
+            GameService.events.set(eventName,listener);
         }
     }
-
-    /**
-     * Unsubscribe from event
-     *
-     * @param {string} eventName
-     * @param {(...args: any[]) => void} listener
-     */
-    public static off(
-        eventName: string,
-        listener: (...args: any[]) => void
-    ): void {
-        if (this.valid && 'alt' in window) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            alt.off(eventName, listener);
-        }
-    }
-
 
     /**
      * Emit event to client
@@ -51,10 +51,16 @@ export class GameService {
      * @param args
      */
     public static emit(eventName: string, ...args: any[]): void {
-        if (this.valid && 'alt' in window) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+        if (GameService.targetFramework === 'altv') {
             alt.emit(eventName, ...args);
+        } else if (GameService.targetFramework === 'fivem') {
+            fetch(`https://${GetParentResourceName()}/${eventName}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify(args),
+            }).catch((error) => console.error('[YaCA-UI] Error sending NUI Message:', error))
         } else {
             this.consoleLog(eventName, args);
         }
@@ -76,3 +82,5 @@ export class GameService {
         );
     }
 }
+
+GameService.getInstance();
