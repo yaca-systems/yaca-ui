@@ -45,7 +45,7 @@ Returns whether the radio ui is open as `boolean`.
 
 </details>
 
-# Events FiveM / RedM
+# Events
 
 <details>
 <summary style="font-size: x-large">Client</summary>
@@ -70,5 +70,3 @@ commands to build the resource:
 pnpm install
 pnpm run build
 ```
-
-The built resource will be located in the `resource` folder, which you can then use in your FiveM server.

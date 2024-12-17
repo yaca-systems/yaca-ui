@@ -69,6 +69,10 @@ class yacaUI {
         this.webview.on('client:yaca:setSecondaryChannel', (channel) => {
             alt.emit("client:yaca:setSecondaryChannel", channel);
         });
+
+        this.webview.on("client:yaca:closeRadio", () => {
+            alt.emit("yaca:external:radioClosed")
+        })
     }
 
     openRadio() {
