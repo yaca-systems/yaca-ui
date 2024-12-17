@@ -104,6 +104,12 @@ on('__cfx_nui:client:yaca:muteRadioChannel', (data, cb) => {
     cb();
 });
 
+RegisterNuiCallbackType('client:yaca:setSecondaryChannel')
+on('__cfx_nui:client:yaca:setSecondaryChannel', (data, cb) => {
+    exports['yaca-voice'].setSecondaryRadioChannel(data[0]);
+    cb();
+});
+
 /* Keybinds */
 function registerKeybinds() {
     if (config.keybinds.open_Radio !== false) {

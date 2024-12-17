@@ -65,6 +65,10 @@ class yacaUI {
         alt.on("client:yaca:setRadioChannelData", (data) => {
             this.webview.emit("webview:yaca:setChannelData", data);
         });
+
+        this.webview.on('client:yaca:setSecondaryChannel', (channel) => {
+            alt.emit("client:yaca:setSecondaryChannel", channel);
+        });
     }
 
     openRadio() {
