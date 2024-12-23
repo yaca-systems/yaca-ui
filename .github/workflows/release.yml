@@ -65,8 +65,8 @@ jobs:
       - name: Bundle files for FiveM
         run: |
           mkdir -p ./temp/yaca-ui-fivem
-          cp -r ./yaca-ui-fivem/dist/* ./temp/yaca-ui-fivem/
-          cp -r ./yaca-ui/templates/fivem/* ./temp/yaca-ui/
+          cp -r ./yaca-ui/dist/* ./temp/yaca-ui-fivem/
+          cp -r ./yaca-ui/templates/fivem/* ./temp/yaca-ui-fivem/
           cd ./temp && zip -r ../yaca-ui-fivem.zip ./yaca-ui-fivem
 
       - name: Update repository
