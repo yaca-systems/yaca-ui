@@ -61,13 +61,14 @@ jobs:
           cp -r ./yaca-ui/dist/* ./temp/yaca-ui/
           cp -r ./yaca-ui/templates/altV/* ./temp/yaca-ui/
           cd ./temp && zip -r ../yaca-ui-altv.zip ./yaca-ui
+          rm -r yaca-ui
 
       - name: Bundle files for FiveM
         run: |
-          mkdir -p ./temp/yaca-ui-fivem
-          cp -r ./yaca-ui/dist/* ./temp/yaca-ui-fivem/
-          cp -r ./yaca-ui/templates/fivem/* ./temp/yaca-ui-fivem/
-          cd ./temp && zip -r ../yaca-ui-fivem.zip ./yaca-ui-fivem
+          mkdir -p ./temp/yaca-ui
+          cp -r ./yaca-ui/dist/* ./temp/yaca-ui/
+          cp -r ./yaca-ui/templates/fivem/* ./temp/yaca-ui/
+          cd ./temp && zip -r ../yaca-ui-fivem.zip ./yaca-ui
 
       - name: Update repository
         run: |

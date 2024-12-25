@@ -88,7 +88,7 @@ on('__cfx_nui:client:yaca:changeRadioFrequency', (data, cb) => {
 
 RegisterNuiCallbackType('client:yaca:changeActiveRadioChannel')
 on('__cfx_nui:client:yaca:changeActiveRadioChannel', (data, cb) => {
-    exports['yaca-voice'].changeActiveRadioChannel(data[0]);
+    exports['yaca-voice'].setActiveRadioChannel(data[0]);
     cb();
 });
 
