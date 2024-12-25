@@ -59,7 +59,7 @@ let values = reactive({
     isRadioActive: false,
     frequency: "0",
     frequencyValid: false,
-    frequencyRegex: /^[0-9]{1,4}.[0-9]{1,3}$/,
+    frequencyRegex: /^[0-9]{1,4},[0-9]{1,3}$/,
     channel: 1,
     maxChannel: 9,
     color: '#7c9d7d',
