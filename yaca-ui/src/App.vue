@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <NoPluginFullScreen v-if="useNoActivePluginUI && !isPluginActive && noActivePluginStyle == 1"/>
+    <NoPluginFullScreen
+        v-if="useNoActivePluginUI && !isPluginActive && noActivePluginStyle == 1"
+        :logoUrl="logoUrl"
+    />
     <NoPluginBanner v-else-if="useNoActivePluginUI && !isPluginActive && noActivePluginStyle == 2"/>
 
     <div class="w-full h-full bg-transparent">
@@ -19,15 +22,20 @@ import LocaleService from "@/services/locale-service";
 const isPluginActive = ref(false);
 const useNoActivePluginUI = ref(false);
 const noActivePluginStyle = ref(1);
+const logoUrl = ref("");
 
 onMounted(() => {
-  GameService.on("webview:yaca:ready", (locales: Object, useNoActivePluginUi: boolean, noActivePluginUiStyle: number) => {
+  GameService.on("webview:yaca:ready", (locales: Object, useNoActivePluginUi: boolean, noActivePluginUiStyle: number, customLogoUrl?: string) => {
     for (let localesKey in locales) {
       LocaleService.AddLocale(localesKey, locales[localesKey]);
     }
 
     useNoActivePluginUI.value = useNoActivePluginUi;
     noActivePluginStyle.value = noActivePluginUiStyle;
+
+    if (logoUrl) {
+      logoUrl.value = customLogoUrl;
+    }
   });
 
   GameService.on("webview:yaca:isActive", (state: boolean) => {
