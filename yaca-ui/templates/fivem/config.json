@@ -1,4 +1,9 @@
 {
+    "noactive_plugin_ui": {
+        "usage": true,
+        "freezeplayer": true,
+        "style": 2
+    },
     "keybinds": {
         "open_Radio": "O"
     },

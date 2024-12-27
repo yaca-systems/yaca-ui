@@ -1,4 +1,9 @@
 const defaultValues = {
+    noactive_plugin_ui: {
+        usage: false,
+        freezeplayer: true,
+        style: 1
+    },
     keybinds: {
         open_Radio: "O"
     },
@@ -116,10 +121,43 @@ RegisterNuiCallbackType('client:yacaui:ready')
 on('__cfx_nui:client:yacaui:ready', (data, cb) => {
     SendNuiMessage(JSON.stringify({
         eventName: 'webview:yaca:ready',
-        locale: config.locales
+        locale: config.locales,
+        useNoActivePluginUI: config.noactive_plugin_ui.usage,
+        noActivePluginStyle: config.noactive_plugin_ui.style ?? 1
     }))
+
+    if (config.noactive_plugin_ui.usage) {
+        const state = exports['yaca-voice'].getPluginState()
+        SendNuiMessage(JSON.stringify({
+            eventName: 'webview:yaca:isActive',
+            state: isPluginActive(state)
+        }))
+    }
+
     cb();
 });
+
+on("yaca:external:pluginStateChanged", state => {
+    if (!config.noactive_plugin_ui.usage) return;
+
+    SendNuiMessage(JSON.stringify({
+        eventName: 'webview:yaca:isActive',
+        state: isPluginActive(state)
+    }))
+});
+
+let pluginActive = false;
+function isPluginActive(state) {
+    const isIngame = ["CONNECTED", "IN_INGAME_CHANNEL", "IN_EXCLUDED_CHANNEL"].includes(state);
+
+    if (config.noactive_plugin_ui.freezeplayer) {
+        FreezeEntityPosition(PlayerPedId(), !isIngame);
+    }
+
+    pluginActive = isIngame;
+
+    return isIngame
+}
 
 /* Keybinds */
 function registerKeybinds() {
@@ -127,7 +165,9 @@ function registerKeybinds() {
         RegisterCommand(
             '+yaca:openRadio',
             () => {
-            this.openRadio(!isRadioOpen)
+                if (config.noactive_plugin_ui.usage && !pluginActive) return;
+
+                this.openRadio(!isRadioOpen)
             },
             false,
         )

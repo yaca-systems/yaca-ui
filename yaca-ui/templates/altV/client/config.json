@@ -1,4 +1,5 @@
 {
+    "use_noactive_plugin": false,
     "locales": {
         "no_plugin_active_header": "No plugin activated",
         "no_plugin_active_body": "You have no plugin active. Please activate a plugin in the settings."
