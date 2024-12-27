@@ -9,6 +9,16 @@ using [yaca.systems](https://yaca.systems/) today!
 # Features
 
 - Radio UI
+- Multiple Styles for a UI if teamspeak plugin is not activated
+
+# Config General
+
+| Variable                                | Type                           | Description                                                                             |
+|-----------------------------------------|--------------------------------|-----------------------------------------------------------------------------------------|
+| noactive_plugin_ui.usage                | `boolean`                      | If the teamspeak plugin is not activated, the ui will be displayed in a different style, default false. |
+| noactive_plugin_ui.style                | `number`                       | The style of the ui if the teamspeak plugin is not activated.                           |
+| noactive_plugin_ui.freezeplayer         | `boolean`                      | If the teamspeak plugin is not activated, the player will be frozen.                    |
+| noactive_plugin_ui.logo                 | `string`                       | Empty string means the default yaca logo is displayed, else the logo via a http url     |
 
 # Config FiveM / RedM
 
