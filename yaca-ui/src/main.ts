@@ -25,12 +25,11 @@ const router = createRouter({
     routes
 });
 
-
 const vuetify = createVuetify({
     directives,
     components: {
         ...components
     }
-})
+});
 
 createApp(App).use(vuetify).use(router).mount('#app');

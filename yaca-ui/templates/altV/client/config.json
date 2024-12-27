@@ -5,11 +5,7 @@
         "style": 1,
         "logo": ""
     },
-    "keybinds": {
-        "open_Radio": "O"
-    },
     "locales": {
-        "open_Radio": "Open Radio",
         "no_plugin_active_header": "No teamspeak plugin activated",
         "no_plugin_active_body": "You have no teamspeak plugin active. Please activate the plugin."
     }

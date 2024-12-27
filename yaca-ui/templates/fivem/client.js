@@ -1,9 +1,17 @@
 const defaultValues = {
+    noactive_plugin_ui: {
+        usage: false,
+        freezeplayer: true,
+        style: 1,
+        logo: ""
+    },
     keybinds: {
         open_Radio: "O"
     },
     locales: {
-        open_Radio: "Open Radio"
+        open_Radio: "Open Radio",
+        no_plugin_active_header: "No plugin activated",
+        no_plugin_active_body: "You have no plugin active. Please activate a plugin in the settings."
     }
 }
 
@@ -110,13 +118,55 @@ on('__cfx_nui:client:yaca:setSecondaryChannel', (data, cb) => {
     cb();
 });
 
+RegisterNuiCallbackType('client:yacaui:ready')
+on('__cfx_nui:client:yacaui:ready', (data, cb) => {
+    SendNuiMessage(JSON.stringify({
+        eventName: 'webview:yaca:ready',
+        locale: config.locales,
+        useNoActivePluginUI: config.noactive_plugin_ui
+    }))
+
+    if (config.noactive_plugin_ui.usage) {
+        SendNuiMessage(JSON.stringify({
+            eventName: 'webview:yaca:isActive',
+            state: isPluginActive(exports['yaca-voice'].getPluginState())
+        }))
+    }
+
+    cb();
+});
+
+on("yaca:external:pluginStateChanged", state => {
+    if (!config.noactive_plugin_ui.usage) return;
+
+    SendNuiMessage(JSON.stringify({
+        eventName: 'webview:yaca:isActive',
+        state: isPluginActive(state)
+    }))
+});
+
+let pluginActive = false;
+function isPluginActive(state) {
+    const isIngame = ["CONNECTED", "IN_INGAME_CHANNEL", "IN_EXCLUDED_CHANNEL"].includes(state);
+
+    if (config.noactive_plugin_ui.freezeplayer) {
+        FreezeEntityPosition(PlayerPedId(), !isIngame);
+    }
+
+    pluginActive = isIngame;
+
+    return isIngame
+}
+
 /* Keybinds */
 function registerKeybinds() {
     if (config.keybinds.open_Radio !== false) {
         RegisterCommand(
             '+yaca:openRadio',
             () => {
-            this.openRadio(!isRadioOpen)
+                if (config.noactive_plugin_ui.usage && !pluginActive) return;
+
+                this.openRadio(!isRadioOpen)
             },
             false,
         )
