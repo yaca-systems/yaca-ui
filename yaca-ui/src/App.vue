@@ -25,15 +25,15 @@ const noActivePluginStyle = ref(1);
 const logoUrl = ref("");
 
 onMounted(() => {
-  GameService.on("webview:yaca:ready", (locales: Object, useNoActivePluginUi: boolean, noActivePluginUiStyle: number, customLogoUrl: string) => {
+  GameService.on("webview:yaca:ready", (locales: Object, useNoActivePluginUiSettings: Object) => {
     for (let localesKey in locales) {
       LocaleService.AddLocale(localesKey, locales[localesKey]);
     }
 
-    useNoActivePluginUI.value = useNoActivePluginUi;
-    noActivePluginStyle.value = noActivePluginUiStyle;
+    useNoActivePluginUI.value = useNoActivePluginUiSettings.usage;
+    noActivePluginStyle.value = useNoActivePluginUiSettings.style;
 
-    if (customLogoUrl.length) logoUrl.value = customLogoUrl;
+    if (useNoActivePluginUiSettings.logo.length) logoUrl.value = useNoActivePluginUiSettings.logo;
   });
 
   GameService.on("webview:yaca:isActive", (state: boolean) => {

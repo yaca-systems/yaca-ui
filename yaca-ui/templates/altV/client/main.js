@@ -1,4 +1,5 @@
 import * as alt from 'alt-client';
+import * as natives from 'natives';
 
 alt.on("connectionComplete", () => {
     new yacaUI();
@@ -8,8 +9,15 @@ class yacaUI {
     webview;
     radioToggle = false;
     canOpenRadio = true;
+    config = {};
     constructor() {
         this.webview = new alt.WebView("http://resource/assets/index.html");
+        this.config = JSON.parse(alt.File.read('./config.json'));
+
+        this.webview.emit("webview:yaca:ready",
+            this.config.locales,
+            this.config.noactive_plugin_ui
+        )
         this.registerEvents();
     }
 
@@ -73,6 +81,24 @@ class yacaUI {
         this.webview.on("client:yaca:closeRadio", () => {
             alt.emit("yaca:external:radioClosed")
         })
+
+        alt.on("YACA:JOINED_INGAME_CHANNEL", () => {
+            this.hasPluginActive(true);
+        });
+
+        alt.on("YACA:DISCONNECTED_FROM_WEBSOCKET", () => {
+            this.hasPluginActive(false);
+        });
+    }
+
+    hasPluginActive(state) {
+        if (!this.config.noactive_plugin_ui) return;
+
+        this.webview.emit("webview:yaca:isActive", state);
+
+        if (this.config.noactive_plugin_ui.freezeplayer) {
+            natives.freezeEntityPosition(alt.Player.local, !state);
+        }
     }
 
     openRadio() {

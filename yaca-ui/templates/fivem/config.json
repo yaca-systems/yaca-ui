@@ -1,6 +1,6 @@
 {
     "noactive_plugin_ui": {
-        "usage": true,
+        "usage": false,
         "freezeplayer": true,
         "style": 1,
         "logo": ""

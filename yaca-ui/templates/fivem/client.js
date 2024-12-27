@@ -123,16 +123,13 @@ on('__cfx_nui:client:yacaui:ready', (data, cb) => {
     SendNuiMessage(JSON.stringify({
         eventName: 'webview:yaca:ready',
         locale: config.locales,
-        useNoActivePluginUI: config.noactive_plugin_ui.usage,
-        noActivePluginStyle: config.noactive_plugin_ui.style,
-        noActivePluginLogo: config.noactive_plugin_ui.logo
+        useNoActivePluginUI: config.noactive_plugin_ui
     }))
 
     if (config.noactive_plugin_ui.usage) {
-        const state = exports['yaca-voice'].getPluginState()
         SendNuiMessage(JSON.stringify({
             eventName: 'webview:yaca:isActive',
-            state: isPluginActive(state)
+            state: isPluginActive(exports['yaca-voice'].getPluginState())
         }))
     }
 
