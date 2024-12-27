@@ -19,9 +19,15 @@ import NoPluginBanner from "@/components/noplugin/NoPluginBanner.vue";
 const isPluginActive = ref(false);
 
 onMounted(() => {
+    GameService.on("webview:yaca:ready", (locales: any) => {
+        
+    });
+
     GameService.on("webview:yaca:isActive", (state: boolean) => {
         isPluginActive.value = state;
     });
+
+    GameService.emit("client:yacaui:ready");
 });
 </script>
 <style>

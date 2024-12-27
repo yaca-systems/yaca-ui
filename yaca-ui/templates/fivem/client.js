@@ -3,7 +3,9 @@ const defaultValues = {
         open_Radio: "O"
     },
     locales: {
-        open_Radio: "Open Radio"
+        open_Radio: "Open Radio",
+        no_plugin_active_header: "No plugin activated",
+        no_plugin_active_body: "You have no plugin active. Please activate a plugin in the settings."
     }
 }
 
@@ -107,6 +109,15 @@ on('__cfx_nui:client:yaca:muteRadioChannel', (data, cb) => {
 RegisterNuiCallbackType('client:yaca:setSecondaryChannel')
 on('__cfx_nui:client:yaca:setSecondaryChannel', (data, cb) => {
     exports['yaca-voice'].setSecondaryRadioChannel(data[0]);
+    cb();
+});
+
+RegisterNuiCallbackType('client:yacaui:ready')
+on('__cfx_nui:client:yacaui:ready', (data, cb) => {
+    SendNuiMessage(JSON.stringify({
+        eventName: 'webview:yaca:ready',
+        locale: config.locales
+    }))
     cb();
 });
 
