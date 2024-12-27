@@ -2,7 +2,8 @@ const defaultValues = {
     noactive_plugin_ui: {
         usage: false,
         freezeplayer: true,
-        style: 1
+        style: 1,
+        logo: ""
     },
     keybinds: {
         open_Radio: "O"
@@ -123,7 +124,8 @@ on('__cfx_nui:client:yacaui:ready', (data, cb) => {
         eventName: 'webview:yaca:ready',
         locale: config.locales,
         useNoActivePluginUI: config.noactive_plugin_ui.usage,
-        noActivePluginStyle: config.noactive_plugin_ui.style ?? 1
+        noActivePluginStyle: config.noactive_plugin_ui.style,
+        noActivePluginLogo: config.noactive_plugin_ui.logo
     }))
 
     if (config.noactive_plugin_ui.usage) {
