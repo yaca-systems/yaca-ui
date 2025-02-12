@@ -147,7 +147,7 @@ on("yaca:external:pluginStateChanged", state => {
 
 let pluginActive = false;
 function isPluginActive(state) {
-    const isIngame = ["CONNECTED", "IN_INGAME_CHANNEL", "IN_EXCLUDED_CHANNEL"].includes(state);
+    const isIngame = ["IN_INGAME_CHANNEL", "IN_EXCLUDED_CHANNEL"].includes(state);
 
     if (config.noactive_plugin_ui.freezeplayer) {
         FreezeEntityPosition(PlayerPedId(), !isIngame);
