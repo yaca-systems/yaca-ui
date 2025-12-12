@@ -60,7 +60,7 @@ export class GameService {
                     'Content-Type': 'application/json; charset=UTF-8',
                 },
                 body: JSON.stringify(args),
-            }).catch((error) => console.error('[YaCA-UI] Error sending NUI Message:', error))
+            }).catch((_) => {})
         } else {
             this.consoleLog(eventName, args);
         }
