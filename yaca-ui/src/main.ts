@@ -4,11 +4,18 @@ import App from './App.vue';
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "./pages/Home.vue";
 
+import '@fontsource/alegreya-sc/latin-500.css';
+import '@fontsource/alegreya-sc/latin-700.css';
+import '@fontsource/alegreya-sc/latin-900.css';
+import '@fontsource/alegreya-sc/latin-ext-500.css';
+import '@fontsource/alegreya-sc/latin-ext-700.css';
+import '@fontsource/alegreya-sc/latin-ext-900.css';
+import '@fontsource/special-elite/latin.css';
+import '@fontsource/special-elite/latin-ext.css';
 
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
-import * as components from 'vuetify/components';
-import * as directives from 'vuetify/directives';
+import { VApp, VCol, VDivider, VImg, VRow } from 'vuetify/components';
 
 import "./assets/style.css";
 
@@ -26,9 +33,12 @@ const router = createRouter({
 });
 
 const vuetify = createVuetify({
-    directives,
     components: {
-        ...components
+        VApp,
+        VCol,
+        VDivider,
+        VImg,
+        VRow
     }
 });
 

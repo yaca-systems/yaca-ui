@@ -1,3 +1,12 @@
+:root {
+    --western-ink: #1a110d;
+    --western-tobacco: #4d3425;
+    --western-brass: #b98848;
+    --western-sand: #ccb08b;
+    --western-dust: #826955;
+    --western-shadow: rgba(15, 9, 6, 0.65);
+}
+
 body,
 .v-application {
     background-color: transparent !important;
@@ -9,6 +18,18 @@ body,
 
 html {
     overflow: hidden;
+}
+
+body {
+    font-family: 'Alegreya SC', Georgia, serif;
+    letter-spacing: 0.01em;
+    text-rendering: optimizeLegibility;
+}
+
+.western-label {
+    font-family: 'Special Elite', 'Courier New', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
 @font-face {

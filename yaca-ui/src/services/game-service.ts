@@ -1,6 +1,6 @@
 export class GameService {
     private static targetFramework: string = '';
-    private static events: Map<string, any> = new Map();
+    private static events: Map<string, Set<(...args: any[]) => void>> = new Map();
     private static instance: GameService;
 
     constructor() {
@@ -12,10 +12,12 @@ export class GameService {
             window.addEventListener("message", function (event) {
                 const { eventName, ...params } = event.data;
 
-                const eventData = GameService.events.get(eventName);
-                if (!eventData) return;
+                const listeners = GameService.events.get(eventName);
+                if (!listeners) return;
 
-                eventData(...Object.values(params));
+                for (const listener of listeners) {
+                    listener(...Object.values(params));
+                }
             })
         }
     }
@@ -40,7 +42,27 @@ export class GameService {
         if (GameService.targetFramework === 'altv') {
             alt.on(eventName, listener);
         } else if (GameService.targetFramework === 'fivem') {
-            GameService.events.set(eventName,listener);
+            const listeners = GameService.events.get(eventName) ?? new Set();
+            listeners.add(listener);
+            GameService.events.set(eventName, listeners);
+        }
+    }
+
+    public static off(
+        eventName: string,
+        listener: (...args: any[]) => void
+    ): void {
+        if (GameService.targetFramework === 'altv') {
+            alt.off(eventName, listener);
+        } else if (GameService.targetFramework === 'fivem') {
+            const listeners = GameService.events.get(eventName);
+            if (!listeners) return;
+
+            listeners.delete(listener);
+
+            if (!listeners.size) {
+                GameService.events.delete(eventName);
+            }
         }
     }
 
@@ -54,7 +76,10 @@ export class GameService {
         if (GameService.targetFramework === 'altv') {
             alt.emit(eventName, ...args);
         } else if (GameService.targetFramework === 'fivem') {
-            fetch(`https://${GetParentResourceName()}/${eventName}`, {
+            const getParentResourceName = (window as Window & { GetParentResourceName?: () => string }).GetParentResourceName;
+            if (!getParentResourceName) return;
+
+            fetch(`https://${getParentResourceName()}/${eventName}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
